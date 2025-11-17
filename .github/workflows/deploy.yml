@@ -48,6 +48,7 @@ jobs:
             echo "Subindo container atualizado..."
             docker run -d \
               --name tcc-gateway \
+              --restart=always \
               -p 8080:8080 \
               -e BUCKET=${{ secrets.BUCKET }} \
               -e REGION=us-east-1 \
