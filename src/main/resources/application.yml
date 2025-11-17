@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: application.yml
+
+amazon:
+  bucket: ${BUCKET}
+  region: ${REGION}
+  accessKey: ${ACCESS_KEY}
+  secretKey: ${SECRET_KEY}
+  sessionToken: ${SESSION_TOKEN}
