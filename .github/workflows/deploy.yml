@@ -52,9 +52,6 @@ jobs:
               -p 80:8080 \
               -e BUCKET=${{ secrets.BUCKET }} \
               -e REGION=us-east-1 \
-              -e ACCESS_KEY=${{ secrets.ACCESS_KEY }} \
-              -e SECRET_KEY=${{ secrets.SECRET_KEY }} \
-              -e SESSION_TOKEN=${{ secrets.SESSION_TOKEN }} \
               uken49/tcc-gateway:latest
 
             echo "Deploy concluído!"
