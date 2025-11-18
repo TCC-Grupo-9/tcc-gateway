@@ -1,5 +1,6 @@
 package com.example.tcc_gateway.service;
 
+import com.example.tcc_gateway.infrastructure.handler.exceptions.ErroAoAbrirArquivo;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +21,7 @@ public class ImagemService {
 
     private final S3Client s3Client;
 
-    public void PostImagemS3(MultipartFile imagem, String nomeArquivo, String webhook, String email) throws IOException {
+    public void PostImagemS3(MultipartFile imagem, String nomeArquivo, String webhook, String email) {
         final File arquivoConvertido = new File(imagem.getOriginalFilename());
 
         Map<String, String> metadata = new HashMap<>();
@@ -30,6 +30,9 @@ public class ImagemService {
 
         try (FileOutputStream fos = new FileOutputStream(arquivoConvertido)) {
             fos.write(imagem.getBytes());
+        }catch (IOException e) {
+            arquivoConvertido.delete();
+            throw new ErroAoAbrirArquivo("Ocorreu um erro ao acessar a imagem.");
         }
 
         s3Client.putObject(request ->
