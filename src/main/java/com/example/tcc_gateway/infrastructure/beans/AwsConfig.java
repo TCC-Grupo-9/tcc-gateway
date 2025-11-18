@@ -13,20 +13,11 @@ public class AwsConfig {
 
     @Bean
     public S3Client s3Client(
-            @Value("${amazon.region}") String region,
-            @Value("${amazon.accessKey}") String accessKey,
-            @Value("${amazon.secretKey}") String secretKey,
-            @Value("${amazon.sessionToken}") String sessionToken
+            @Value("${amazon.region}") String region
     ) {
-        final AwsSessionCredentials credentials = AwsSessionCredentials.create(
-                accessKey,
-                secretKey,
-                sessionToken
-        );
 
         return S3Client.builder()
                 .region(Region.of(region))
-                .credentialsProvider(StaticCredentialsProvider.create(credentials))
                 .build();
     }
 }

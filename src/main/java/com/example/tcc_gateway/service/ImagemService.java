@@ -32,7 +32,7 @@ public class ImagemService {
             fos.write(imagem.getBytes());
         }
 
-        final PutObjectResponse putObjectResponse = s3Client.putObject(request ->
+        s3Client.putObject(request ->
                         request
                                 .bucket(nomeBucket)
                                 .key(nomeArquivo)
