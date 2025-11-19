@@ -50,7 +50,7 @@ jobs:
               --name tcc-gateway \
               --restart=unless-stopped \
               -p 80:8080 \
-              -e BUCKET=${{ secrets.BUCKET }} \
+              -e BUCKET=tcc-bucket-original \
               -e REGION=us-east-1 \
               uken49/tcc-gateway:latest
 
