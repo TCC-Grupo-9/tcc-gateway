@@ -6,5 +6,5 @@ spring:
     name: application.yml
 
 amazon:
-  bucket: ${BUCKET}
+  bucket: ${BUCKET_ORIGINAL}
   region: ${REGION}
