@@ -6,7 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+
+  build-docker:
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
 
@@ -22,7 +23,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Configurar TAG
+      - name: Configurar TAG baseada em timestamp
         run: echo "IMAGE_VERSION=$(date +%s)" >> $GITHUB_ENV
 
       - name: Construir e enviar imagem
@@ -31,6 +32,13 @@ jobs:
           docker push uken49/tcc-gateway:${{ env.IMAGE_VERSION }}
           docker push uken49/tcc-gateway:latest
 
+
+  deploy-ec2:
+    needs: build-docker
+    environment: tcc-gateway
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Deploy na EC2
         uses: appleboy/ssh-action@v1.2.0
         with:
