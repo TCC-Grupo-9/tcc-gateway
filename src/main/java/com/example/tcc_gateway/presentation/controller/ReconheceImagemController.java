@@ -30,8 +30,8 @@ public class ReconheceImagemController {
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void endpointEnviaImagemS3(
-            @Valid @URL(message = "Deve ser informada uma URL válida.") @RequestParam() String webhook,
-            @Valid @Email(message = "Deve ser informada um email válido.") @RequestParam() String email,
+            @Valid @URL(message = "Deve ser informada uma URL válida.") @RequestParam(required = false) String webhook,
+            @Valid @Email(message = "Deve ser informada um email válido.") @RequestParam(required = false) String email,
             @Valid @RequestPart MultipartFile imagem
     ) {
         if (webhook.isBlank() && email.isBlank()) {

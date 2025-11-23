@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: application.yml
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
 
 amazon:
   bucket: ${BUCKET_ORIGINAL}
